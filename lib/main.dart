@@ -111,10 +111,15 @@ class _BunnyStreamHomePageState extends State<BunnyStreamHomePage> with SingleTi
         libraryId: libraryId,
         cdnHostname: cdnHostname,
       );
-      
-      await _loadVideos();
-      
+
+      print('Setting state');
+
       setState(() => _isInitialized = true);
+      print('Setting state done');
+      print('Loading videos');
+
+      await _loadVideos();
+      print('Loading videos done');
       _showSnackBar('Successfully connected to Bunny Stream');
     } catch (e) {
       _showSnackBar('Failed to initialize Bunny Stream: $e');
@@ -126,6 +131,7 @@ class _BunnyStreamHomePageState extends State<BunnyStreamHomePage> with SingleTi
   }
   
   Future<void> _loadVideos() async {
+    print('Is Initialized $_isInitialized');
     if (!_isInitialized) return;
     
     setState(() => _isLoading = true);
@@ -193,6 +199,7 @@ class _BunnyStreamHomePageState extends State<BunnyStreamHomePage> with SingleTi
   }
   
   void _showSnackBar(String message) {
+    print('Showing snackbar: $message');
     _scaffoldKey.currentState?.showSnackBar(
       SnackBar(content: Text(message)),
     );
